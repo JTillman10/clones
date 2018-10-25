@@ -9,7 +9,6 @@ import { PassportModule } from '@nestjs/passport';
   imports: [
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    UsersModule,
   ],
   controllers: [UsersController],
   providers: [UsersService],

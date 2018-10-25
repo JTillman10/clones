@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-import { UsernamePasswordCombination } from '../interfaces/username-password-combination';
+import { LoginDto } from './dtos/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -10,20 +10,16 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  async login(usernamePasswordCombination: UsernamePasswordCombination) {
-    const accessToken = this.jwtService.sign(usernamePasswordCombination);
+  async login(loginDto: LoginDto) {
+    const accessToken = this.jwtService.sign(loginDto);
     return {
       expiresIn: 3600,
       accessToken,
     };
   }
 
-  async validateUser(
-    usernamePasswordCombination: UsernamePasswordCombination,
-  ): Promise<any> {
+  async validateUser(loginDto: LoginDto): Promise<any> {
     // use passport authenticate?
-    return await this.usersService.findOneByUsernameAndPassword(
-      usernamePasswordCombination,
-    );
+    return await this.usersService.findOneByUsernameAndPassword(loginDto);
   }
 }
