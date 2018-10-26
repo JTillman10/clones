@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dtos/login.dto';
+import { JwtPayload } from './dtos/jwtPayload.dto';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,21 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  async login(loginDto: LoginDto) {
+  async authenticate(loginDto: LoginDto) {
+    const user = await this.usersService.findOneByEmail(loginDto.email);
+    if (!user) {
+      throw new BadRequestException();
+    }
+
+    const match = await this.usersService.compareHash(
+      loginDto.password,
+      user.password,
+    );
+
+    if (!match) {
+      throw new BadRequestException('Invalid credentials');
+    }
+
     const accessToken = this.jwtService.sign(loginDto);
     return {
       expiresIn: 3600,
@@ -18,8 +33,7 @@ export class AuthService {
     };
   }
 
-  async validateUser(loginDto: LoginDto): Promise<any> {
-    // use passport authenticate?
-    return await this.usersService.findOneByUsernameAndPassword(loginDto);
+  async validateUser(jwtPayload: JwtPayload): Promise<any> {
+    return await this.usersService.findOneById(jwtPayload.id);
   }
 }
