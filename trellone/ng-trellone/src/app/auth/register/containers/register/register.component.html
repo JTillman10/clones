@@ -1,3 +1,4 @@
-<p>
-  <auth-form></auth-form>
-</p>
+<auth-form [type]="'registering'" (submitted)="registerUser($event)">
+  <span class="auth-form-title">Register</span>
+  <span class="auth-form-button">Register</span>
+</auth-form>

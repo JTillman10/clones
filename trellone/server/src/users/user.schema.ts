@@ -3,7 +3,6 @@ import { Schema } from 'mongoose';
 export const UserSchema = new Schema({
   email: String,
   username: String,
-  firstName: String,
-  lastName: String,
+  name: String,
   password: String,
 });
