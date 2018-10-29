@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,8 @@ import { CoreModule } from './core/core.module';
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
-    CoreModule
+    CoreModule,
+    DashboardModule
   ],
   providers: [Store],
   bootstrap: [AppComponent]

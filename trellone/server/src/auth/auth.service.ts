@@ -14,7 +14,7 @@ export class AuthService {
   async authenticate(loginDto: LoginDto) {
     const user = await this.usersService.findOneByEmail(loginDto.email);
     if (!user) {
-      throw new BadRequestException();
+      throw new BadRequestException('Unknown email address');
     }
 
     const match = await this.usersService.compareHash(

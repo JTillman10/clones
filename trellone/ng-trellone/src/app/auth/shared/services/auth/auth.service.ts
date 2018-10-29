@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { shareReplay, tap } from 'rxjs/operators';
+import { shareReplay, tap, catchError } from 'rxjs/operators';
 import * as moment from 'moment';
 
 // import { environment } from '../../../../../environments/environment';
@@ -11,6 +11,7 @@ import { Store } from 'store';
 import { SharedModule } from '../../shared.module';
 import { NewUser } from '../../interfaces/new-user.interface';
 import { AuthResult } from '../../interfaces/auth-result.interface';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: SharedModule
@@ -21,9 +22,10 @@ export class AuthService {
   constructor(private http: HttpClient, private store: Store) {}
 
   createUser(newUser: NewUser) {
-    return this.http
-      .post<NewUser>(`${this.authUrl}/register`, newUser)
-      .pipe(shareReplay());
+    return this.http.post<NewUser>(`${this.authUrl}/register`, newUser).pipe(
+      shareReplay(),
+      catchError(error => throwError(error))
+    );
   }
 
   loginUser(email: string, password: string) {
@@ -34,7 +36,12 @@ export class AuthService {
       })
       .pipe(
         shareReplay(),
-        tap(authResult => this.setSession(authResult))
+        tap(
+          authResult => this.setSession(authResult),
+          error => {
+            throw error;
+          }
+        )
       );
   }
 

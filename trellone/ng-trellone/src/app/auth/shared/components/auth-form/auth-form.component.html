@@ -7,7 +7,7 @@
         </p>
       </div>
       <div class="card-content">
-        <p class="subtitle has-text-grey has-text-centered">Please register to proceed.</p>
+        <ng-content select=".error"></ng-content>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="field">
             <div class="control has-icons-left has-icons-right">
