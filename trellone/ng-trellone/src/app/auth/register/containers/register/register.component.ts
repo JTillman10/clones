@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/auth/shared/services/auth/auth.service';
-import { NewUser } from 'src/app/auth/shared/interfaces/new-user.interface';
+import { AuthService } from '../../..//shared/services/auth/auth.service';
+import { NewUser } from '../../..//shared/interfaces/new-user.interface';
 
 @Component({
   selector: 'register',
@@ -11,7 +11,6 @@ export class RegisterComponent {
   constructor(private authService: AuthService) {}
 
   async registerUser(event: NewUser) {
-    console.log(event);
-    // await this.authService.createUser(newUser);
+    await this.authService.createUser(event).subscribe();
   }
 }

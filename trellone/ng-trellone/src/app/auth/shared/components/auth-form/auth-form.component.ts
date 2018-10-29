@@ -1,5 +1,10 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  Validators,
+  FormGroup,
+  FormControl
+} from '@angular/forms';
 import { NewUser } from '../../interfaces/new-user.interface';
 
 @Component({
@@ -7,28 +12,38 @@ import { NewUser } from '../../interfaces/new-user.interface';
   templateUrl: './auth-form.component.html',
   styleUrls: ['./auth-form.component.scss']
 })
-export class AuthFormComponent {
+export class AuthFormComponent implements OnInit {
   @Input()
   type: String;
 
   @Output()
   submitted = new EventEmitter<NewUser>();
 
-  form = this.fb.group({
+  form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    username: ['', Validators.required],
     password: ['', Validators.required]
   });
 
   constructor(private fb: FormBuilder) {}
 
+  ngOnInit() {
+    if (this.registering) {
+      this.form.addControl(
+        'username',
+        new FormControl('', Validators.required)
+      );
+    }
+  }
+
   onSubmit() {
     if (this.formValid) {
-      const newUser = {
+      const newUser: any = {
         email: this.form.get('email').value,
-        username: this.form.get('username').value,
         password: this.form.get('password').value
       };
+      if (this.registering) {
+        newUser.username = this.form.get('username').value;
+      }
       this.submitted.emit(newUser);
     }
   }
@@ -41,6 +56,7 @@ export class AuthFormComponent {
     return this.form.valid;
   }
 
+  // TODO: refactor these methods
   get passwordRequired() {
     const control = this.form.get('password');
     return control.hasError('required') && control.touched;

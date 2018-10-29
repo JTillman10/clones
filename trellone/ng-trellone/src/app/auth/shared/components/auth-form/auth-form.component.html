@@ -12,7 +12,7 @@
           <div class="field">
             <div class="control has-icons-left has-icons-right">
               <input [ngClass]="{'is-danger': fieldInvalid('email'), 'is-success': fieldValid('email')}" class="input is-medium"
-                type="email" placeholder="Email" autofocus="" formControlName="email">
+                type="email" placeholder="Email" formControlName="email">
               <span [ngClass]="{'has-text-danger': fieldInvalid('email'), 'has-text-success': fieldValid('email')}"
                 class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
@@ -74,5 +74,8 @@
         </form>
       </div>
     </div>
+    <p class="has-text-gray has-text-centered">
+      <ng-content select="a"></ng-content>
+    </p>
   </div>
 </div>
