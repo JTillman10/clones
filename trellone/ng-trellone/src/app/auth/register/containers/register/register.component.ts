@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { AuthService } from '../../..//shared/services/auth/auth.service';
 import { NewUser } from '../../..//shared/interfaces/new-user.interface';
 
@@ -8,9 +10,16 @@ import { NewUser } from '../../..//shared/interfaces/new-user.interface';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  constructor(private authService: AuthService) {}
+  error: string;
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   async registerUser(event: NewUser) {
-    await this.authService.createUser(event).subscribe();
+    await this.authService
+      .createUser(event)
+      .subscribe(
+        res => this.router.navigate(['/']),
+        err => (this.error = err.error.message)
+      );
   }
 }

@@ -11,7 +11,6 @@ import { Store } from 'store';
 import { SharedModule } from '../../shared.module';
 import { NewUser } from '../../interfaces/new-user.interface';
 import { AuthResult } from '../../interfaces/auth-result.interface';
-import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: SharedModule
@@ -22,9 +21,14 @@ export class AuthService {
   constructor(private http: HttpClient, private store: Store) {}
 
   createUser(newUser: NewUser) {
-    return this.http.post<NewUser>(`${this.authUrl}/register`, newUser).pipe(
+    return this.http.post<AuthResult>(`${this.authUrl}/register`, newUser).pipe(
       shareReplay(),
-      catchError(error => throwError(error))
+      tap(
+        authResult => this.setSession(authResult),
+        error => {
+          throw error;
+        }
+      )
     );
   }
 
@@ -48,12 +52,19 @@ export class AuthService {
   logoutUser() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('username');
+    localStorage.removeItem('user_id');
 
     this.store.set('user', null);
   }
 
   isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
+    if (moment().isBefore(this.getExpiration())) {
+      return true;
+    } else {
+      this.logoutUser();
+      return false;
+    }
   }
 
   isLoggedOut() {
@@ -65,12 +76,14 @@ export class AuthService {
 
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem('username', authResult.user.username);
+    localStorage.setItem('user_id', authResult.user._id);
 
-    this.store.set('user', authResult.user);
+    // this.store.set('user', authResult.user);
   }
 
   getExpiration() {
-    const expiration = localStorage.getIntem('expires_at');
+    const expiration = localStorage.getItem('expires_at');
     const expiresAt = JSON.parse(expiration);
     return moment(expiresAt);
   }

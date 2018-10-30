@@ -3,6 +3,6 @@ export const Config = {
   mongoUrl: 'mongodb://osubucks:jerome09@ds247449.mlab.com:47449/trellone',
   jwtOptions: {
     secretOrPrivateKey: 'secretKey',
-    signOptions: { expiresIn: 3600 },
+    signOptions: { expiresIn: 7200 },
   },
 };

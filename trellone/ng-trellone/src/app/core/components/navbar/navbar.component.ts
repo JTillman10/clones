@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, pipe, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Store } from 'store';
 import { User } from 'app/core/interfaces/user.interface';
+import { AuthService } from '../../../auth/shared/services/auth/auth.service';
 
 @Component({
   selector: 'navbar',
@@ -10,11 +13,26 @@ import { User } from 'app/core/interfaces/user.interface';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  user$: Observable<User>;
+  // subscription$: Subscription;
+  // user$: Observable<User>;
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.user$ = this.store.select<User>('user');
+    // this.subscription$ = this.store.select<User>('user').subscribe();
+    // this.user$ = this.store.select<User>('user');
+  }
+
+  get username() {
+    return localStorage.getItem('username');
+  }
+
+  logOut() {
+    this.authService.logoutUser();
+    this.router.navigate(['/auth/login']);
   }
 }

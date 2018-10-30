@@ -12,13 +12,13 @@
       </div>
 
       <div class="navbar-end">
+        <span class="navbar-item is-size-6" *ngIf="username">
+          Welcome, {{ username }}
+        </span>
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary">
-              <strong>Register</strong>
-            </a>
-            <a class="button is-light">
-              Log in
+            <a class="button is-light" *ngIf="authService.isLoggedIn()" (click)="logOut()">
+              Log out
             </a>
           </div>
         </div>

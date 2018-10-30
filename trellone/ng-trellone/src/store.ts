@@ -9,8 +9,7 @@ export interface State {
 }
 
 const state: State = {
-  user: undefined,
-  meals: undefined
+  user: undefined
 };
 
 export class Store {

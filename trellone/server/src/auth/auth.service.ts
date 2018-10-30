@@ -28,7 +28,7 @@ export class AuthService {
 
     const accessToken = this.jwtService.sign(loginDto);
     return {
-      expiresIn: 3600,
+      expiresIn: 7200,
       accessToken,
       user,
     };

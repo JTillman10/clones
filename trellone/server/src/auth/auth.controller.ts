@@ -20,7 +20,15 @@ export class AuthController {
   }
 
   @Post('register')
-  register(@Body(new ValidationPipe()) createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async register(@Body(new ValidationPipe()) createUserDto: CreateUserDto) {
+    const password = createUserDto.password;
+    const newUSer = await this.usersService.create(createUserDto);
+
+    const userToAuthenticate: LoginDto = {
+      email: createUserDto.email,
+      password,
+    };
+
+    return await this.authService.authenticate(userToAuthenticate);
   }
 }
