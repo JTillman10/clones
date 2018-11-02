@@ -27,28 +27,34 @@ export class AuthFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    if (this.registering) {
-      this.form.addControl(
-        'username',
-        new FormControl('', Validators.required)
-      );
+    if (this.isRegistering) {
+      this.addUsernameControl();
     }
+  }
+
+  addUsernameControl() {
+    this.form.addControl('username', new FormControl('', Validators.required));
   }
 
   onSubmit() {
     if (this.formValid) {
-      const newUser: any = {
-        email: this.form.get('email').value,
-        password: this.form.get('password').value
-      };
-      if (this.registering) {
-        newUser.username = this.form.get('username').value;
-      }
-      this.submitted.emit(newUser);
+      this.submitted.emit(this.newUser);
     }
   }
 
-  get registering() {
+  get newUser() {
+    const newUser: any = {
+      email: this.form.get('email').value,
+      password: this.form.get('password').value
+    };
+    if (this.isRegistering) {
+      newUser.username = this.form.get('username').value;
+    }
+
+    return newUser;
+  }
+
+  get isRegistering() {
     return this.type === 'registering';
   }
 
@@ -56,25 +62,14 @@ export class AuthFormComponent implements OnInit {
     return this.form.valid;
   }
 
-  // TODO: refactor these methods
-  get passwordRequired() {
-    const control = this.form.get('password');
-    return control.hasError('required') && control.touched;
-  }
-
-  get usernameRequired() {
-    const control = this.form.get('username');
-    return control.hasError('required') && control.touched;
-  }
-
-  get emailRequired() {
-    const control = this.form.get('email');
-    return control.hasError('required') && control.touched;
-  }
-
   get emailFormatInvalid() {
     const control = this.form.get('email');
     return control.hasError('email') && control.touched;
+  }
+
+  fieldRequired(field) {
+    const control = this.form.get(field);
+    return control.hasError('required') && control.touched;
   }
 
   fieldValid(field) {

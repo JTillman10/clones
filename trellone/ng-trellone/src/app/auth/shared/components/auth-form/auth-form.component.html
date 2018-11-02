@@ -11,62 +11,56 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="field">
             <div class="control has-icons-left has-icons-right">
-              <input [ngClass]="{'is-danger': fieldInvalid('email'), 'is-success': fieldValid('email')}" class="input is-medium"
-                type="email" placeholder="Email" formControlName="email">
-              <span [ngClass]="{'has-text-danger': fieldInvalid('email'), 'has-text-success': fieldValid('email')}"
+              <input id="email" [ngClass]="{'is-danger': fieldInvalid('email'), 'is-success': fieldValid('email')}"
+                class="input is-medium" type="email" placeholder="Email" formControlName="email">
+              <span id="email-icon" [ngClass]="{'has-text-danger': fieldInvalid('email'), 'has-text-success': fieldValid('email')}"
                 class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
               </span>
-              <span class="icon is-small is-right has-text-success" *ngIf="fieldValid('email')">
+              <span id="email-check" class="icon is-small is-right has-text-success" *ngIf="fieldValid('email')">
                 <i class="fas fa-check"></i>
               </span>
-              <span class="icon is-small is-right has-text-danger" *ngIf="fieldInvalid('email')">
+              <span id="email-warning" class="icon is-small is-right has-text-danger" *ngIf="fieldInvalid('email')">
                 <i class="fas fa-exclamation-triangle"></i>
               </span>
             </div>
-            <p class="help is-danger" *ngIf="emailFormatInvalid">This email format is invalid</p>
-            <p class="help is-danger" *ngIf="emailRequired">Email address is required</p>
+            <p id="email-format-invalid" class="help is-danger" *ngIf="emailFormatInvalid">This email format is invalid</p>
+            <p id="email-required" class="help is-danger" *ngIf="fieldRequired('email')">Email address is required</p>
           </div>
-          <div class="field" *ngIf="registering">
+          <div class="field" *ngIf="isRegistering">
             <div class="control has-icons-left has-icons-right">
-              <input [ngClass]="{'is-danger': fieldInvalid('username'), 'is-success': fieldValid('username')}" class="input is-medium"
-                type="text" placeholder="Username" formControlName="username">
-              <span [ngClass]="{'has-text-danger': fieldInvalid('username'), 'has-text-success': fieldValid('username')}"
+              <input id="username" [ngClass]="{'is-danger': fieldInvalid('username'), 'is-success': fieldValid('username')}"
+                class="input is-medium" type="text" placeholder="Username" formControlName="username">
+              <span id="username-icon" [ngClass]="{'has-text-danger': fieldInvalid('username'), 'has-text-success': fieldValid('username')}"
                 class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
-              <span class="icon is-small is-right has-text-success" *ngIf="fieldValid('username')">
+              <span id="username-check" class="icon is-small is-right has-text-success" *ngIf="fieldValid('username')">
                 <i class="fas fa-check"></i>
               </span>
-              <span class="icon is-small is-right has-text-danger" *ngIf="fieldInvalid('username')">
+              <span id="username-warning" class="icon is-small is-right has-text-danger" *ngIf="fieldInvalid('username')">
                 <i class="fas fa-exclamation-triangle"></i>
               </span>
             </div>
             <p class="help is-success" *ngIf="false">This username is available</p>
-            <p class="help is-danger" *ngIf="usernameRequired">Username is required</p>
+            <p id="username-required" class="help is-danger" *ngIf="fieldRequired('username')">Username is required</p>
           </div>
           <div class="field">
             <div class="control has-icons-left has-icons-right">
-              <input [ngClass]="{'is-danger': fieldInvalid('password'), 'is-success': fieldValid('password')}" class="input is-medium"
-                type="password" placeholder="Password" formControlName="password">
-              <span [ngClass]="{'has-text-danger': fieldInvalid('password'), 'has-text-success': fieldValid('password')}"
+              <input id="password" [ngClass]="{'is-danger': fieldInvalid('password'), 'is-success': fieldValid('password')}"
+                class="input is-medium" type="password" placeholder="Password" formControlName="password">
+              <span id="password-icon" [ngClass]="{'has-text-danger': fieldInvalid('password'), 'has-text-success': fieldValid('password')}"
                 class="icon is-small is-left">
                 <i class="fas fa-lock"></i>
               </span>
-              <span class="icon is-small is-right has-text-success" *ngIf="fieldValid('password')">
+              <span id="password-check" class="icon is-small is-right has-text-success" *ngIf="fieldValid('password')">
                 <i class="fas fa-check"></i>
               </span>
-              <span class="icon is-small is-right has-text-danger" *ngIf="fieldInvalid('password')">
+              <span id="password-warning" class="icon is-small is-right has-text-danger" *ngIf="fieldInvalid('password')">
                 <i class="fas fa-exclamation-triangle"></i>
               </span>
             </div>
-            <p class="help is-danger" *ngIf="passwordRequired">Password is required</p>
-          </div>
-          <div class="field">
-            <label class="checkbox">
-              <input type="checkbox">
-              Remember me
-            </label>
+            <p id="password-required" class="help is-danger" *ngIf="fieldRequired('password')">Password is required</p>
           </div>
           <button class="button is-block is-info is-medium is-fullwidth" type="submit" [disabled]="!formValid">
             <ng-content select=".auth-form-button"></ng-content>

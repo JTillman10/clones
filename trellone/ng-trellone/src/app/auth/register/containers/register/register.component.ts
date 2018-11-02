@@ -12,7 +12,7 @@ import { NewUser } from '../../..//shared/interfaces/new-user.interface';
 export class RegisterComponent {
   error: string;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   async registerUser(event: NewUser) {
     await this.authService

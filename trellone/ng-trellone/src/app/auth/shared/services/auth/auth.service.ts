@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { shareReplay, tap, catchError } from 'rxjs/operators';
+import { shareReplay, tap } from 'rxjs/operators';
 import * as moment from 'moment';
 
-// import { environment } from '../../../../../environments/environment';
 import { environment } from 'environment';
-import { Store } from 'store';
 
 import { SharedModule } from '../../shared.module';
 import { NewUser } from '../../interfaces/new-user.interface';
@@ -18,7 +16,7 @@ import { AuthResult } from '../../interfaces/auth-result.interface';
 export class AuthService {
   authUrl: String = `${environment.baseUrl}/auth`;
 
-  constructor(private http: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient) {}
 
   createUser(newUser: NewUser) {
     return this.http.post<AuthResult>(`${this.authUrl}/register`, newUser).pipe(
@@ -54,8 +52,6 @@ export class AuthService {
     localStorage.removeItem('expires_at');
     localStorage.removeItem('username');
     localStorage.removeItem('user_id');
-
-    this.store.set('user', null);
   }
 
   isLoggedIn() {
@@ -78,8 +74,6 @@ export class AuthService {
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
     localStorage.setItem('username', authResult.user.username);
     localStorage.setItem('user_id', authResult.user._id);
-
-    // this.store.set('user', authResult.user);
   }
 
   getExpiration() {
