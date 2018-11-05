@@ -1,4 +1,3 @@
-import { Input, Component, Output, EventEmitter } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
@@ -18,14 +17,6 @@ describe('RegisterComponent', () => {
   let authServiceSpy: jasmine.SpyObj<AuthService>,
     createUserSpy: jasmine.Spy,
     routerSpy: jasmine.SpyObj<Router>;
-
-  // @Component({ selector: 'auth-form', template: '' })
-  // class AuthFormStubComponent {
-  //   @Input()
-  //   type;
-  //   @Output()
-  //   submitted = new EventEmitter<string>();
-  // }
 
   beforeEach(async(() => {
     const authService = jasmine.createSpyObj('AuthService', ['createUser']);
