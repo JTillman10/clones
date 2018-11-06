@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stage": "cp -a  dist/ng-trellone/. ../server/dist"
+    "stage": "ng build --aot --prod && cp -a  dist/. ../server/dist/client"
   },
   "private": true,
   "dependencies": {

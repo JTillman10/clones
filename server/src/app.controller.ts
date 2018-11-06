@@ -8,6 +8,6 @@ export class AppController {
 
   @Get()
   root(@Res() response: Response): void {
-    response.sendFile(path.resolve('./dist/index.html'));
+    response.sendFile(path.resolve('./dist//client/index.html'));
   }
 }
