@@ -1,3 +1,4 @@
+#!/bin/bash
 # echo INSTALLING cli
 # npm install @angular/cli
 pwd
