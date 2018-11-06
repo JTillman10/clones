@@ -7,3 +7,4 @@
 # ng build --aot --prod
 # ls
 cd ./ng-trellone
+ls
