@@ -6,3 +6,4 @@
 # echo BUILDING FRONTEND FOR PROD
 # ng build --aot --prod
 # ls
+cd ./ng-trellone
