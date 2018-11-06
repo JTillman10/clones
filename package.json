@@ -9,8 +9,8 @@
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "prestart:prod-ng": "rimraf dist && tsc",
-    "start:prod-ng": "node dist/server/main.js",
+    "prestart:prod": "rimraf dist && tsc && cd ./ng-trellone && npm run stage",
+    "start:prod": "node dist/server/main.js",
     "start:hmr": "node dist/server",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "webpack": "webpack --config webpack.config.js",
-    "postinstall": "tsc && cd ../ng-trellone && npm run stage",
+    "postinstall": "tsc && cd ./ng-trellone && npm run stage:prod",
     "deploy": "git push origin master && git push heroku master"
   },
   "dependencies": {

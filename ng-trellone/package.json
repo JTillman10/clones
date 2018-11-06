@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stage": "ng build --aot --prod && cp -a  dist/. ../server/dist/client"
+    "stage:prod": "ng build --aot --prod && cp -a  dist/. ../dist/client",
+    "stage": "ng build && cp -a  dist/. ../dist/client"
   },
   "private": true,
   "dependencies": {
