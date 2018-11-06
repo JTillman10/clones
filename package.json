@@ -18,6 +18,7 @@
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "webpack": "webpack --config webpack.config.js",
+    "heroku-prebuild": "echo INSTALLING ANGULAR DEPENDENCIES && cd ./ng-trellone npm i",
     "postinstall": "tsc && cd ./ng-trellone && npm run stage:prod",
     "deploy": "git push origin master && git push heroku master"
   },
@@ -39,8 +40,6 @@
     "typescript": "^3.0.1"
   },
   "devDependencies": {
-    "@angular/cli": "~7.0.3",
-    "@angular/compiler-cli": "~7.0.0",
     "@nestjs/testing": "^5.1.0",
     "@types/express": "^4.16.0",
     "@types/jest": "^23.3.7",
