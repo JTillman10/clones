@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "webpack": "webpack --config webpack.config.js",
-    "heroku-prebuild": "echo INSTALLING ANGULAR DEPENDENCIES && cd ./ng-trellone && npm i && cd node_modules/angular && ls",
+    "heroku-prebuild": "echo INSTALLING ANGULAR DEPENDENCIES && cd ./ng-trellone && npm i && cd node_modules/@angular && ls",
     "postinstall": "tsc && cd ./ng-trellone && npm run stage:prod",
     "deploy": "git push origin master && git push heroku master"
   },
