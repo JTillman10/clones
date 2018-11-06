@@ -18,8 +18,8 @@
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "webpack": "webpack --config webpack.config.js",
-    "heroku-prebuild": "./scripts/prebuild.sh",
-    "postinstall": "tsc && ./scripts/postbuild.sh",
+    "heroku-prebuild": "bash ./scripts/prebuild.sh",
+    "postinstall": "tsc && bash ./scripts/postbuild.sh",
     "deploy": "git push origin master && git push heroku master"
   },
   "dependencies": {
