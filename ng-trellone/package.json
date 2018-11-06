@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stage:prod": "cd ./node_modules/@angular && ls && ng build --aot --prod && cp -a  dist/. ../dist/client",
+    "stage:prod": "ng build --aot --prod",
     "stage": "ng build && cp -a  dist/. ../dist/client"
   },
   "private": true,

@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "trellone",
   "version": "0.0.0",
   "description": "description",
   "author": "",
@@ -18,9 +18,10 @@
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "webpack": "webpack --config webpack.config.js",
-    "heroku-prebuild": "echo INSTALLING ANGULAR DEPENDENCIES && cd ./ng-trellone && npm i && cd node_modules/@angular && ls",
-    "postinstall": "tsc && cd ./ng-trellone && npm run stage:prod",
-    "deploy": "git push origin master && git push heroku master"
+    "heroku-prebuild": "echo INSTALLING ANGULAR DEPENDENCIES && cd ./ng-trellone && npm i && npm run stage:prod",
+    "postinstall": "tsc && npm run grabFrontend",
+    "deploy": "git push origin master && git push heroku master",
+    "grabFrontend": "cp -a  ./ng-trellone/dist/. ./dist/client"
   },
   "dependencies": {
     "@nestjs/common": "^5.1.0",
