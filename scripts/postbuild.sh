@@ -1,0 +1,1 @@
+cp -a  ./ng-trellone/dist/. ./dist/client
