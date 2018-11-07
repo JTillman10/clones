@@ -3,14 +3,10 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: ['webpack/hot/poll?1000', './src/main.hmr.ts'],
+  entry: ['./src/main.hmr.ts'],
   // watch: true,
   target: 'node',
-  externals: [
-    nodeExternals({
-      whitelist: ['webpack/hot/poll?1000'],
-    }),
-  ],
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
